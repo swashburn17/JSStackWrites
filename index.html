@@ -182,6 +182,17 @@
         }
       }
 
+        // setting up the icon for helicopter pads
+        const heliRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://swashburn17.github.io/JSStackRead/helicopter.png",
+          "width": "20px",
+          "height": "20px"
+        }
+      }
+
         //const to make the airport labels
         const airportLabels = {
         symbol: {
@@ -209,6 +220,14 @@
             definitionExpression: "aeroway = 'AERODROME'", //adding sql to filter for airports
             labelingInfo: [airportLabels], //adding the labels
 
+        });
+
+        // adding the constructor for the feature layer
+        const heliau = new FeatureLayer({
+            url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/hotosm_aus_airports_polygons_shp/FeatureServer", //get URL from AGOL Item Page
+            renderer: heliRenderer,
+            definitionExpression: "aeroway = 'helipad'", //adding sql to filter for airports
+
         //adding the popup here
         outFields: ["NAME","BUILDING","EMERGENCY","AEROWAY","SOURCE"],
         // Add missing properties here
@@ -217,6 +236,9 @@
 
         // adding the feature layer to the map
         map.add(airportau);
+
+       // adding the feature layer to the map
+        map.add(heliau);
 
     });
   </script>
