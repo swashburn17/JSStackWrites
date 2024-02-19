@@ -60,11 +60,28 @@
             }  
         };
 
+        // defining popup properties
+
+        const popupTemplate = {
+            title: "{Name}",
+            content: "{Description}"
+        }
+        const attributes = {
+            Name: "Sydney Opera House",
+            Description: "This is the location of the famous Sydney Opera House."
+        }
+
         // creating the point
 
         const pointGraphic = new Graphic({  
         geometry: point,  
-        symbol: simpleMarkerSymbol  
+        symbol: simpleMarkerSymbol,  
+
+        // adding the popup properties
+
+        attributes: attributes,
+        popupTemplate: popupTemplate
+
         });
 
         // adding the point to the graphics layer
