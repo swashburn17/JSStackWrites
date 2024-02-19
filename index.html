@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a map</title>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.28/"></script>
+
+    <script>
+      require(["esri/config", "esri/Map", "esri/layers/GeoJSONLayer", "esri/views/MapView"], function(esriConfig, Map, GeoJSONLayer, MapView) {
+      // If GeoJSON files are not on the same domain as your website, a CORS enabled server
+      // or a proxy is required.
+      const url = "https://swashburn17.github.io/JSStackRead/map.geojson";
+
+        esriConfig.apiKey = "AAPK1765fcbd73fc4425b0cd59bdc8917e2bmcTlBpvn58EXkohap6CpN2AW0fqzLT6uVWDm397RXqEqWOhZxic16ypSWD1WQhY_";
+
+      const template = {
+        title: "Mega Cities",
+        content: "{City} {type} {coordinates}",
+      };
+
+      const renderer = {
+        type: "simple",
+        field: "coordinates",
+        symbol: {
+          type: "simple-marker",
+          color: "orange",
+          outline: {
+            color: "white"
+          }
+        },
+        visualVariables: [{
+          type: "size",
+          field: "coordinates",
+          stops: [{
+              value: 2.5,
+              size: "4px"
+            },
+            {
+              value: 8,
+              size: "40px"
+            }
+          ]
+        }]
+      };
+
+      const geojsonLayer = new GeoJSONLayer({
+        url: url,
+        copyright: "Sidney",
+        popupTemplate: template,
+        renderer: renderer,
+        orderBy: {
+          field: "City"
+        }
+      });
+
+      const map = new Map({
+        basemap: "arcgis/topographic",
+        layers: [geojsonLayer]
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        center: [-168, 46],
+        zoom: 2,
+        map: map
+      });
+    });
+
+    </script>
+
+  </head>
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
