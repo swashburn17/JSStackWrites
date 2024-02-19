@@ -53,7 +53,7 @@
         const simpleMarkerSymbol = {  
              type: "simple-marker",
              style: "diamond",  
-             color: [5, 5, 139],  // Color of blues rock
+             color: [5, 5, 130],  
              outline: {  
                 color: [255, 255, 255], // White  
                 width: 1
@@ -87,6 +87,62 @@
         // adding the point to the graphics layer
 
         graphicsLayer.add(pointGraphic);
+
+        // creating a polyline
+
+        const polyline = {
+            type: "polyline", // autocasts as new Polyline()
+            paths: [[151.20981, -33.861094], [151.212128, -33.86128]]
+        };
+
+         // Create a simple line symbol for rendering the line in the view
+         const lineSymbol = {
+            type: "simple-line", // autocasts as new SimpleLineSymbol()
+                color: [226, 119, 40], // RGB color values as an array
+                width: 4
+        };
+
+         // Create a simple object containing useful information relating to the feature
+         const lineAtt = {
+            Name: "Sydney Wharfs at Circular Quay", // The name of the pipeline
+            Length: "208 m" // The length of the Sydney Wharfs
+        };
+
+         // Create the graphic
+        const polylineGraphic = new Graphic({
+            geometry: polyline, // Add the geometry created in step 3
+            symbol: lineSymbol, // Add the symbol created in step 4
+            attributes: lineAtt // Add the attributes created in step 5
+        });
+
+        // Add the graphic to the view's default graphics view
+            view.graphics.add(polylineGraphic);
+
+        // Create a polygon geometry
+        const polygon = {
+          type: "polygon", // autocasts as new Polygon()
+          rings: [[151.208941, -33.854460], [151.209531, -33.854636], [151.212414, -33.849836], [151.211879, -33.849875]]
+        };
+        
+        // Create a symbol for rendering the graphic
+        const fillSymbol = {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: [157, 139, 10, 0.8],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 255, 255],
+            width: 2
+          }
+        };
+
+        // Add the geometry and symbol to a new graphic
+        const polygonGraphic = new Graphic({
+          geometry: polygon,
+          symbol: fillSymbol
+        });
+
+        // Add the graphics to the view's graphics layer
+        view.graphics.addMany([pointGraphic, polylineGraphic, polygonGraphic]);
 
     });
   </script>
