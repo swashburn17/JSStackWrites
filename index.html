@@ -171,18 +171,6 @@
             "content": "<b>Name:</b> {NAME}<br><b>Building:</b> {BUILDING}<br><b>Emergency:</b> {EMERGENCY}<br><b>Aeroway:</b> {AEROWAY}<br><b>Source:</b> {SOURCE}<br>"
         }    
 
-        // adding the constructor for the feature layer
-        const airportau = new FeatureLayer({
-            url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/hotosm_aus_airports_polygons_shp/FeatureServer", //get URL from AGOL Item Page
-            renderer: airportRenderer,
-            
-
-        //adding the popup here
-        outFields: ["NAME","BUILDING","EMERGENCY","AEROWAY","SOURCE"],
-        // Add missing properties here
-        popupTemplate: popupairportau
-        });
-
         // setting up the icon
         const airportRenderer = {
         "type": "simple",
@@ -194,6 +182,17 @@
         }
       }
 
+        // adding the constructor for the feature layer
+        const airportau = new FeatureLayer({
+            url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/hotosm_aus_airports_polygons_shp/FeatureServer", //get URL from AGOL Item Page
+            renderer: airportRenderer,
+            definitionExpression: "aeroway = 'AERODROME'", //adding sql to filter for airports
+
+        //adding the popup here
+        outFields: ["NAME","BUILDING","EMERGENCY","AEROWAY","SOURCE"],
+        // Add missing properties here
+        popupTemplate: popupairportau
+        });
 
         // adding the feature layer to the map
         map.add(airportau);
