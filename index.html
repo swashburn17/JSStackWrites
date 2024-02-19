@@ -68,7 +68,7 @@
             content: "{Description}"
         }
         const attributes = {
-            Name: "Sydney Opera House",
+            Name: "<i>Sydney Opera House</i>",
             Description: "This is the location of the famous Sydney Opera House."
         }
 
@@ -146,13 +146,57 @@
         view.graphics.addMany([pointGraphic, polylineGraphic, polygonGraphic]
         );
 
+        // Define a pop-up for leisureau
+        const popupleisureau = {
+             "title": "<i>Leisure Area Information</i>",
+            "content": "<b>Name:</b> {NAME}<br><b>Leisure:</b> {LEISURE}<br><b>Website:</b> {WEBSITE}<br><b>Access:</b> {ACCESS}<br><b>Wheelchair:</b> {WHEELCHAIR}<br>"
+        }    
+
         // adding the constructor for the feature layer
-        const usaeduLayer = new FeatureLayer({
-            url: "https://services-ap1.arcgis.com/iA7fZQOnjY9D67Zx/arcgis/rest/services/OSM_AU_Leisure/FeatureServer" //get URL from AGOL Item Page
+        const leisureau = new FeatureLayer({
+            url: "https://services-ap1.arcgis.com/iA7fZQOnjY9D67Zx/arcgis/rest/services/OSM_AU_Leisure/FeatureServer", //get URL from AGOL Item Page
+
+        //adding the popup here
+        outFields: ["NAME","LEISURE","WEBSITE","ACCESS","WHEELCHAIR"],
+        // Add missing properties here
+        popupTemplate: popupleisureau
         });
-        
+
         // adding the feature layer to the map
-        map.add(usaeduLayer);
+        map.add(leisureau);
+
+        // Define a pop-up for leisureau
+        const popupairportau = {
+             "title": "<i>Airport Information</i>",
+            "content": "<b>Name:</b> {NAME}<br><b>Building:</b> {BUILDING}<br><b>Emergency:</b> {EMERGENCY}<br><b>Aeroway:</b> {AEROWAY}<br><b>Source:</b> {SOURCE}<br>"
+        }    
+
+        // adding the constructor for the feature layer
+        const airportau = new FeatureLayer({
+            url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/hotosm_aus_airports_polygons_shp/FeatureServer", //get URL from AGOL Item Page
+            renderer: airportRenderer,
+            
+
+        //adding the popup here
+        outFields: ["NAME","BUILDING","EMERGENCY","AEROWAY","SOURCE"],
+        // Add missing properties here
+        popupTemplate: popupairportau
+        });
+
+        // setting up the icon
+        const airportRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://swashburn17.github.io/JSStackRead/outline_local_airport_black_24dp.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
+
+
+        // adding the feature layer to the map
+        map.add(airportau);
 
     });
   </script>
