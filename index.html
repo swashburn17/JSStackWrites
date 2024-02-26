@@ -24,6 +24,7 @@
       "esri/layers/FeatureLayer", // feature layers
       "esri/widgets/Editor", // editor widget
       "esri/widgets/Legend" // legend widget
+
     ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {
 
       esriConfig.apiKey = "AAPK1765fcbd73fc4425b0cd59bdc8917e2bmcTlBpvn58EXkohap6CpN2AW0fqzLT6uVWDm397RXqEqWOhZxic16ypSWD1WQhY_";
@@ -207,18 +208,18 @@
             family: "Noto Sans",
             style: "italic",
             weight: "normal"
-    }
- },
+        }
+    },
         labelPlacement: "above-center",
         labelExpressionInfo: {
         expression: "$feature.name"
-  }
-};
+    }
+  };
 
         // adding the constructor for the feature layer
         const airportau = new FeatureLayer({
             url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/hotosm_aus_airports_polygons_shp/FeatureServer", //get URL from AGOL Item Page
-            title: "Airports in Australia",
+            title: "Airports in Australia", // added layer title
             renderer: airportRenderer,
             definitionExpression: "aeroway = 'AERODROME'", //adding sql to filter for airports
             labelingInfo: [airportLabels], //adding the labels
@@ -227,8 +228,8 @@
 
         // adding the constructor for the feature layer
         const heliau = new FeatureLayer({
-            url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/hotosm_aus_airports_polygons_shp/FeatureServer",
-            title: "Helipads in Australia", //get URL from AGOL Item Page
+            url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/hotosm_aus_airports_polygons_shp/FeatureServer", //get URL from AGOL Item Page
+            title: "Helipads in Australia", // added layer title
             renderer: heliRenderer,
             definitionExpression: "aeroway = 'helipad'", //adding sql to filter for airports
 
@@ -268,13 +269,13 @@
             family: "Noto Sans",
             style: "italic",
             weight: "normal"
-    }
- },
+       }
+    },
         labelPlacement: "above-center",
         labelExpressionInfo: {
         expression: "$feature.AirportCode"
-  }
-};
+    }
+  };
 
         //adding the const for the feature layer "My Aerodromes/Airports"
         const myAirports = new FeatureLayer({
@@ -305,12 +306,13 @@
     // Add the widget to the view
     view.ui.add(editor, "top-right");
 
-    let legend = new Legend({
+    // creating the legend
+    let legend = new Legend({ 
     view: view
     });
 
-  view.ui.add(legend, "bottom-right");
-
+    // adding the legend to the map
+  view.ui.add(legend, "bottom-right"); 
     });
   </script>
 
