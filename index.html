@@ -242,9 +242,42 @@
         map.add(heliau);
 
 
+        // setting up the icon
+        const myaerodrometRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://swashburn17.github.io/JSStackWrites/Airport.jpg",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
+
+    //const to make the aerodrome/airport code labels
+    const aerodromeLabels = {
+        symbol: {
+        type: "text",
+        color: "#FFFFFF",
+        haloColor: "#5E8D74",
+        haloSize: "2px",
+        font: {
+            size: "12px",
+            family: "Noto Sans",
+            style: "italic",
+            weight: "normal"
+    }
+ },
+        labelPlacement: "above-center",
+        labelExpressionInfo: {
+        expression: "$feature.AirportCode"
+  }
+};
+
         //adding the const for the feature layer "My Aerodromes/Airports"
         const myAirports = new FeatureLayer({
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/My_Aerodromes/FeatureServer",
+        renderer: myaerodrometRenderer,
+        labelingInfo: [aerodromeLabels], //adding the code labels
  
        //adding the popup here
        outFields: ["AirportCode"],
