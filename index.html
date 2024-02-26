@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Hello, AGOL!</title>
+  <title>Hello, AGOL! Welcome to JS Stacks Writes.</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
@@ -20,9 +20,10 @@
       "esri/Map",
       "esri/views/MapView",
       "esri/Graphic",  
-      "esri/layers/GraphicsLayer",
-      "esri/layers/FeatureLayer"
-    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+      "esri/layers/GraphicsLayer", // graphic layer
+      "esri/layers/FeatureLayer", // feature layers
+      "esri/widgets/Editor" // editor widget
+    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor) {
 
       esriConfig.apiKey = "AAPK1765fcbd73fc4425b0cd59bdc8917e2bmcTlBpvn58EXkohap6CpN2AW0fqzLT6uVWDm397RXqEqWOhZxic16ypSWD1WQhY_";
       const map = new Map({
@@ -239,6 +240,34 @@
 
        // adding the feature layer to the map
         map.add(heliau);
+
+
+        //adding the const for the feature layer "My Aerodromes/Airports"
+        const myAirports = new FeatureLayer({
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/My_Aerodromes/FeatureServer",
+ 
+       //adding the popup here
+       outFields: ["AirportCode"],
+
+      });
+
+    //adding the feature layer to the map
+    map.add(myAirports);
+
+    // Set the point layer's LayerInfo
+    const pointInfos = {
+    layer: myAirports
+    }
+
+    // Begin Editor constructor
+    const editor = new Editor({
+    view: view,
+    layerInfos: [pointInfos]
+    }); // End Editor constructor
+
+    // Add the widget to the view
+    view.ui.add(editor, "top-right");
+
 
     });
   </script>
